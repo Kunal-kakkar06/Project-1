@@ -14,12 +14,11 @@ def get_requirements(file_path:str)->List[str]:
             reqs.remove(HYPEN_E_DOT)
 
     return reqs
- 
+
 setup(
 name = "mlProject",
 version="0.0.1",
 author="Kunal",
 packages = find_packages(),
 install_requires = get_requirements('requirements.txt')
-
 )
