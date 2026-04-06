@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
+import os
 
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
@@ -10,7 +11,7 @@ from sklearn.pipeline import Pipeline
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_path
+from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
@@ -61,7 +62,7 @@ class DataTransformation:
             )
             return preprocessor
         
-        except:
+        except Exception as e:
             raise CustomException(e,sys)
         
     def initiate_data_transformation(self,train_path,test_path):
@@ -98,7 +99,7 @@ class DataTransformation:
 
             logging.info(f"Saved preprocessing object.")
 
-            save_path(
+            save_object(
 
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
@@ -113,3 +114,14 @@ class DataTransformation:
         
         except Exception as e:
             raise CustomException(e,sys)
+
+
+from src.utils import save_object   # ✅ FIXED
+
+if __name__ == "__main__":
+    obj = DataTransformation()
+
+    train_path = "artifacts/train.csv"   # ✅ FIXED
+    test_path = "artifacts/test.csv"
+
+    obj.initiate_data_transformation(train_path, test_path)
