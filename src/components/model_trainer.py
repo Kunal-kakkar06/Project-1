@@ -54,7 +54,7 @@ class ModelTrainer:
                 },
                 "Random Forest":{
                     # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                 
+                
                     # 'max_features':['sqrt','log2',None],
                     'n_estimators': [8,16,32,64,128,256]
                 },
@@ -112,6 +112,25 @@ class ModelTrainer:
             return r2_square
             
 
- 
+
         except Exception as e:
             raise CustomException(e,sys)
+        
+
+if __name__ == "__main__":
+    from src.components.data_transformation import DataTransformation
+
+    print("Starting model training...")
+
+    # Step 1: Get transformed data
+    data_obj = DataTransformation()
+    train_arr, test_arr, _ = data_obj.initiate_data_transformation(
+        "artifacts/train.csv",
+        "artifacts/test.csv"
+    )
+
+    # Step 2: Train model
+    trainer = ModelTrainer()
+    result = trainer.initiate_model_trainer(train_arr, test_arr)
+
+    print("Training completed. R2 Score:", result)
