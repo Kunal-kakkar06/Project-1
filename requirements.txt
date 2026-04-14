@@ -1,9 +1,9 @@
-pandas
+flask
 numpy
-seaborn
-matplotlib
+pandas
 scikit-learn
+matplotlib
+seaborn
 catboost
 xgboost
 dill
-Flask
