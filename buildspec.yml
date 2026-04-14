@@ -1,14 +1,21 @@
 version: 0.2
+
+env:
+  variables:
+    ImageName: simple-docker-service
+
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 139979205183.dkr.ecr.ap-south-1.amazonaws.com
+
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $ImageName .
+      - docker build -t $ImageName:latest .
+
   post_build:
     commands:
       - echo Build completed on `date`
